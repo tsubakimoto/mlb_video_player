@@ -1,7 +1,9 @@
 ﻿using Google.Apis.YouTube.v3;
 using google_api_credential;
+using mlb_video_player_dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace mlb_video_player_console
@@ -43,6 +45,18 @@ namespace mlb_video_player_console
             // Call the search.list method to retrieve results matching the specified query term.
             var searchListResponse = await searchListRequest.ExecuteAsync();
 
+            var videos =
+                searchListResponse
+                    .Items
+                    .Where(item => item.Id.Kind == "youtube#video")
+                    .Select(item => new Video()
+                                    {
+                                        Id = item.Id.VideoId,
+                                        Title = item.Snippet.Title,
+                                        PublishedAt = item.Snippet.PublishedAt,
+                                        Thumbnails = item.Snippet.Thumbnails
+                                    });
+#if false
             var videos = new List<string>();
             var channels = new List<string>();
             var playlists = new List<string>();
@@ -70,6 +84,7 @@ namespace mlb_video_player_console
             Console.WriteLine(String.Format("Videos:\n{0}\n", string.Join("\n", videos)));
             Console.WriteLine(String.Format("Channels:\n{0}\n", string.Join("\n", channels)));
             Console.WriteLine(String.Format("Playlists:\n{0}\n", string.Join("\n", playlists)));
+#endif
         }
     }
 }
