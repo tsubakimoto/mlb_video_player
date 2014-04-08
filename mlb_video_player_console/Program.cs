@@ -2,7 +2,6 @@
 using google_api_credential;
 using mlb_video_player_dto;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,7 +39,9 @@ namespace mlb_video_player_console
             searchListRequest.Q = "mlb cg"; // Replace with your search term.
             searchListRequest.MaxResults = 50;
             searchListRequest.Order = SearchResource.ListRequest.OrderEnum.Date;
-            searchListRequest.PublishedAfter = DateTime.Today;
+            searchListRequest.PublishedAfter = DateTime.Today.AddDays(-1);
+            searchListRequest.Type = "video";
+            searchListRequest.VideoEmbeddable = SearchResource.ListRequest.VideoEmbeddableEnum.True;
 
             // Call the search.list method to retrieve results matching the specified query term.
             var searchListResponse = await searchListRequest.ExecuteAsync();
@@ -48,7 +49,6 @@ namespace mlb_video_player_console
             var videos =
                 searchListResponse
                     .Items
-                    .Where(item => item.Id.Kind == "youtube#video")
                     .Select(item => new Video()
                                     {
                                         Id = item.Id.VideoId,
