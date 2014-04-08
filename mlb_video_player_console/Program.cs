@@ -18,7 +18,7 @@ namespace mlb_video_player_console
 
             try
             {
-                new Program().Run().Wait();
+                new Program().SearchRun().Wait();
             }
             catch (AggregateException ex)
             {
@@ -32,19 +32,24 @@ namespace mlb_video_player_console
             Console.ReadKey();
         }
 
-        private async Task Run()
+        private async Task SearchRun()
         {
+            // 認証情報の設定
             var youtubeService = new YouTubeService(Credential.GetInitializer());
 
+            // 検索条件の設定
             var searchListRequest = youtubeService.Search.List("snippet");
-            searchListRequest.Q = "mlb cg"; // Replace with your search term.
+            searchListRequest.Q = "mlb cg";
             searchListRequest.MaxResults = 50;
             searchListRequest.Order = SearchResource.ListRequest.OrderEnum.Date;
             searchListRequest.PublishedAfter = DateTime.Today;
+            searchListRequest.Type = "video";
+            searchListRequest.VideoEmbeddable = SearchResource.ListRequest.VideoEmbeddableEnum.True;
 
-            // Call the search.list method to retrieve results matching the specified query term.
+            // 検索処理の非同期実行
             var searchListResponse = await searchListRequest.ExecuteAsync();
 
+            // 検索結果の展開
             var videos =
                 searchListResponse
                     .Items
