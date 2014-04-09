@@ -7,7 +7,8 @@ namespace mlb_video_player_console
         [STAThread]
         static void Main(string[] args)
         {
-            YouTubeSearch();
+            //YouTubeSearch();
+            YouTubePlayLists();
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
@@ -33,7 +34,20 @@ namespace mlb_video_player_console
 
         static void YouTubePlayLists()
         {
+            Console.WriteLine("YouTube Data API: Playlist Updates");
+            Console.WriteLine("==================================");
 
+            try
+            {
+                new PlayLists().Run().Wait();
+            }
+            catch (AggregateException ex)
+            {
+                foreach (var e in ex.InnerExceptions)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+            }
         }
     }
 }
