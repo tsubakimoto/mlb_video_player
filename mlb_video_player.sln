@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "google_api_credential", "go
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mlb_video_player_dto", "mlb_video_player_dto\mlb_video_player_dto.csproj", "{94379B64-D388-42FD-A163-4D5810F429A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mlb_video_player_web", "mlb_video_player_web\mlb_video_player_web.csproj", "{335DE3C6-764B-450E-BEAF-2FBFBAE65FFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{94379B64-D388-42FD-A163-4D5810F429A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94379B64-D388-42FD-A163-4D5810F429A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94379B64-D388-42FD-A163-4D5810F429A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335DE3C6-764B-450E-BEAF-2FBFBAE65FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335DE3C6-764B-450E-BEAF-2FBFBAE65FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335DE3C6-764B-450E-BEAF-2FBFBAE65FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335DE3C6-764B-450E-BEAF-2FBFBAE65FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
