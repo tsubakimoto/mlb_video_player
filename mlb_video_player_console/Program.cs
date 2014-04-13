@@ -8,7 +8,9 @@ namespace mlb_video_player_console
         static void Main(string[] args)
         {
             //YouTubeSearch();
-            YouTubePlayLists();
+            //YouTubePlayLists();
+
+            Scraping.Run();
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
