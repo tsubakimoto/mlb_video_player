@@ -42,6 +42,10 @@ namespace mlb_video_player_dto
 
         public DateTime PublishedAt { get; private set; }
 
+        public Team HomeTeam { get; private set; }
+
+        public Team AwayTeam { get; private set; }
+
         #endregion
 
         #region コンストラクタ
@@ -77,7 +81,27 @@ namespace mlb_video_player_dto
             }
 
             var c = div.FirstOrDefault(e => e.ContainsAttribute("class", "content"));
+            if (c != null)
+            {
+                var a = c.Descendants(ns + "a").FirstOrDefault();
+                if (a != null && a.HasAttribute("title"))
+                {
+                    this.Title = a.Attribute("title").Value;
+                }
+                if (!string.IsNullOrEmpty(this.Title))
+                {
+                    var dt = this.Title.Split(' ').Take(3).ToArray();
+                    int year, month, day;
+                    if (int.TryParse(dt[0], out month) && int.TryParse(dt[1], out day) && int.TryParse("20" + dt[2], out year))
+                    {
+                        this.PublishedAt = new DateTime(year, month, day);
+                    }
 
+                    var teams = this.Title.Split('@').ToArray();
+                    var away = teams.FirstOrDefault().Split(' ').LastOrDefault().Trim();
+                    var home = teams.LastOrDefault().Split(' ').FirstOrDefault().Trim();
+                }
+            }
         }
 
         #endregion

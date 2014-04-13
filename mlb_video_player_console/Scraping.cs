@@ -23,28 +23,13 @@ namespace mlb_video_player_console
         public static void Run()
         {
             var xml = ParseHtml("https://www.youtube.com/user/agsgdgfg01/videos");
-
             var ns = xml.Root.Name.Namespace;
-
             var liList = xml.Descendants(ns + "ul")
                         .Where(e => e.HasAttribute("id", "channels-browse-content-grid"))
                         .SelectMany(e => e.Descendants(ns + "li"))
                         .Where(e => e.ContainsAttribute("class", "channels-content-item"));
 
-            foreach (var li in liList)
-            {
-                var div = li.Descendants(ns + "div");
-
-                //var t = div.FirstOrDefault(e => e.ContainsAttribute("class", "thumbnail"));
-                //if (t != null)
-                //{
-                //    var thumbnail = new Thumbnail(t);
-                //}
-
-                //var c = div.FirstOrDefault(e => e.ContainsAttribute("class", "content"));
-
-                Console.WriteLine();
-            }
+            var contents = liList.Select(li => new Content(li));
         }
     }
 }
