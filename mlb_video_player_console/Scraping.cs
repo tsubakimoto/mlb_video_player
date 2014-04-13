@@ -22,6 +22,9 @@ namespace mlb_video_player_console
 
         public static void Run()
         {
+            new Mlb();
+            return;
+
             var xml = ParseHtml("https://www.youtube.com/user/agsgdgfg01/videos");
             var ns = xml.Root.Name.Namespace;
             var liList = xml.Descendants(ns + "ul")
